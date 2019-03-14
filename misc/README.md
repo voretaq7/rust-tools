@@ -20,11 +20,11 @@ quit
 
 This will automatically update the steamcmd client if necessary and then
 install the current version of the Rust dedicated server (Steam App ID
-258550).
+258550).  If all goes well above your Rust server user should have a directory
+named `~/.steam/steamcmd/rust_server` when this is done.
 
-## Script Installation
-If all goes well above your Rust server user should have a directory
-named `~/.steam/steamcmd/rust_server` - copy `server_runner.sh` there
+## Script Installation & Configuration
+Copy the `server_runner.sh` script to wherever you want to keep it
 (rename it if you want) and configure it by editing the script to set
 the "Server Runner Configuration Settings" at the top of the script to
 parameters to something sane for your setup.  
@@ -60,8 +60,7 @@ change them.
   UPDATE to "NO" and manually update the application via `steamcmd`
   (using the same command as for installation).
 * **RUST_DIR**  
-  The default setting is probably what you want here
-  (it will be the full path to `~/.steam/steamcmd/rust_server`).  
+  The default setting is the full path to `~/.steam/steamcmd/rust_server`).  
   If your Rust server directory is somewhere else then change this.
 
 # Your First Startup & server.cfg settings
@@ -73,8 +72,11 @@ your map.
 Once your server is running you can and should create a `server.cfg` file
 at `~/.steam/steamcmd/rust_server/servers/my_server_identity/cfg/server.cfg`
 to set things like your server name and description, then restart the server
-to ensure your changes are loaded. 
-A minimal server.cfg file is provided in this repository.
+to ensure your changes are loaded.  You can restart the server by sending the
+`quit` command over RCON.  
+
+A minimal server.cfg file is provided in this repository.  
+There are plenty of references online about what values you can set in this file.
 
 # Automatic Server Startup
 The easiest way to start your server automatically is to call the
