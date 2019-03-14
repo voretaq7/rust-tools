@@ -41,7 +41,7 @@ RUST_DIR=`realpath ~/.steam/steamcmd/rust_server`
 
 SERVER_DIR="${RUST_DIR}/server/${IDENTITY}"
 WIPE_TRIGGER="${SERVER_DIR}/WIPE"
-BPWIPE_TRIGGER="${SERVER_DIR}/BPWIPE"
+WIPE_KEEP_BP="${SERVER_DIR}/KEEP_BP"
 LOGFILE="${SERVER_DIR}/server.log"
 MAXLOGS=5
 
@@ -54,11 +54,10 @@ while true ; do
   if [ -f ${WIPE_TRIGGER} ]; then
     echo "Wipe Trigger Present. Wiping the server."
     rm -f ${WIPE_TRIGGER}
-    if [ -e ${BPWIPE_TRIGGER} ]; then
-      rm -f ${BPWIPE_TRIGGER}
-      KEEP_BP=0
-    else
+    if [ -e ${WIPE_KEEP_BP} ]; then
       KEEP_BP=1
+    else
+      KEEP_BP=0
     fi
     rm -f ${BACKUP_FILE}
     echo "Creating a wipe backup at ${BACKUP_FILE}"
@@ -67,7 +66,7 @@ while true ; do
     rm ${SERVER_DIR}/*
     if [ ${KEEP_BP} -eq 1 ]; then
 	    echo "    Restoring Blueprints"
-	    (cd ${SERVER_DIR} ; tar xvf ${BACKUP_FILE} ${BLUEPRINT_FILE} )
+	    (cd ${SERVER_DIR} ; tar xvf ${BACKUP_FILE} ${BLUEPRINT_FILE} ; touch KEEP_BP)
     fi
   fi
 

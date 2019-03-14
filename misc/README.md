@@ -76,3 +76,36 @@ to set things like your server name and description, then restart the server
 to ensure your changes are loaded. 
 A minimal server.cfg file is provided in this repository.
 
+# Automatic Server Startup
+The easiest way to start your server automatically is to call the
+server-runner script from [cron](https://www.linux.com/learn/scheduling-magic-intro-cron-linux)
+using the `@reboot` time condition.  An example crontab entry:  
+```
+@reboot screen -d -m ~/server-runner.sh
+```
+This will launch the server-runner script in a detached 
+[screen](https://www.gnu.org/software/screen/) session, which you can
+attach to later using `screen -x`.  
+
+(There are other, better ways to manage automatic startup. If your server
+is more than just a personal/hobby box you should probably NOT take the
+easy way out like this.)
+
+
+# Managing Wipes
+To wipe your server create a file in the server identity directory named
+`WIPE` - e.g.  
+`touch ~/.steam/steamcmd/rust_server/servers/my_server_identity/WIPE`  
+
+Then connect to your server using rcon and run the `quit` command.  
+The server will exit, a backup of the existing server data will be
+created (in the BACKUPS directory under the server directory), and
+the server will be wiped.
+
+If you want your players to keep their learned blueprints across
+wipes create a `KEEP_BP` file in the server identity directory  
+`touch ~/.steam/steamcmd/rust_server/servers/my_server_identity/KEEP_BP`  
+The blueprints file will be restored from the automatically-created backup,
+and a KEEP_BP file will be created for you. Note that you will need to
+manually remove the KEEP_BP file if you want to clear blueprints in a
+subsequent wipe.
