@@ -108,7 +108,7 @@ EOF
 	+server.port ${SERVER_PORT}               \
 	+server.identity "${IDENTITY}"            \
 	+server.level "${SERVER_LEVEL}"           \
-	+server.worldsize ${SERVER_WORLDSIZZE}    \
+	+server.worldsize ${SERVER_WORLDSIZE}     \
 	+server.seed ${SERVER_SEED}               \
 	+server.salt ${SERVER_SALT}               \
 	-readcfg
